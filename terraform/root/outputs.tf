@@ -11,7 +11,7 @@ output "api_gateway_url" {
 }
 
 output "s3_audit_bucket" {
-  value = module.s3.bucket_name
+  value = module.s3_audit.bucket_name
 }
 
 output "cognito_user_pool_id" {

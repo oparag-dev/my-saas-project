@@ -1,3 +1,4 @@
+aws_region = "eu-west-3"
 environment = "dev"
 lambda_function_name = "multi_tenant_handler_dev"
 lambda_code_bucket   = "my-saas-lambda-code-dev"

@@ -1,6 +1,6 @@
 variable "aws_region" {
   type    = string
-  default = "us-east-1"
+  default = "eu-west-3"
 }
 
 variable "environment" {
@@ -16,7 +16,7 @@ variable "lambda_code_bucket" {
 }
 
 variable "tenant_limits" {
-  type = map(number)
+  type        = map(number)
   description = "Tenant tier limits, e.g., max report window, max API calls"
 }
 
