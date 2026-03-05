@@ -33,6 +33,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "this" {
     id     = "move-to-glacier"
     status = "Enabled"
 
+    filter {}
+
     transition {
       days          = var.lifecycle_days
       storage_class = "GLACIER"
