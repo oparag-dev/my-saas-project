@@ -255,3 +255,79 @@ This project shows practical experience with:
 * multi-tenant SaaS architecture
 * AWS security practices
 * cost-aware infrastructure planning
+## Cleaning Up the Infrastructure
+
+If you want to remove the infrastructure created by this project, the safest approach is to use Terraform.
+
+Terraform keeps track of every resource it creates through a state file. Because of this, it can remove the infrastructure cleanly without leaving unused resources in your AWS account.
+
+### Step 1. Go to the Terraform root directory
+
+```
+cd terraform/root
+```
+
+### Step 2. Check the resources Terraform created
+
+Run:
+
+```
+terraform state list
+```
+
+This command shows every resource currently managed by Terraform for this project.
+
+### Step 3. Preview what will be deleted
+
+Before removing anything, it is good practice to see what Terraform plans to destroy.
+
+```
+terraform plan -destroy -var-file="../envs/dev.tfvars"
+```
+
+This does not delete anything. It only shows the resources that will be removed.
+
+### Step 4. Destroy the infrastructure
+
+To remove the deployed infrastructure, run:
+
+```
+terraform destroy -var-file="../envs/dev.tfvars"
+```
+
+Terraform will remove the main components created for this project, including:
+
+* API Gateway
+* Lambda function
+* DynamoDB table
+* Cognito user pool
+* CloudWatch alarms
+* S3 audit logging bucket
+
+### Step 5. Resources created manually
+
+Some resources were created outside Terraform and will not be deleted automatically.
+
+Examples include:
+
+* the Terraform state bucket
+* the Lambda code bucket
+* the Lambda deployment zip file
+
+If you want to remove them as well, you can do so manually using the AWS CLI.
+
+Example:
+
+```
+aws s3 rb s3://my-saas-lambda-code-dev --force
+```
+
+### Step 6. Confirm everything is removed
+
+You can confirm that Terraform no longer manages any resources by running:
+
+```
+terraform state list
+```
+
+If nothing appears, the environment has been cleaned up successfully.
