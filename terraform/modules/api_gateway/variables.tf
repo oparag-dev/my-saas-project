@@ -12,3 +12,7 @@ variable "user_pool_arn" {
   description = "Cognito User Pool ARN for authorizer"
   type        = string
 }
+variable "lambda_function_name" {
+  description = "Lambda function name"
+  type        = string
+}

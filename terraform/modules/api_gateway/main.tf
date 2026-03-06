@@ -82,7 +82,7 @@ resource "aws_api_gateway_stage" "this" {
 resource "aws_lambda_permission" "apigw" {
   statement_id  = "AllowApiGatewayInvoke"
   action        = "lambda:InvokeFunction"
-  function_name = split(":", var.lambda_arn)[6] # function name from ARN
+  function_name = var.lambda_function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "arn:aws:execute-api:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.this.id}/*/*/*"
 }
