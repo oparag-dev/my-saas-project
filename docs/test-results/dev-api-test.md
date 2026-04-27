@@ -58,4 +58,24 @@ category: cloud
 amount: 2500
 description: AWS test expense
 
+## S3 Audit Log Check
+
+Command: aws s3 ls s3://saas-audit-logs-dev --recursive
+
+tenant_id=tenant_a/audit-2026-04-27T15:12:22.038336+00:00.json
+tenant_id=tenant_a/audit-2026-04-27T15:12:40.501862+00:00.json
+tenant_id=tenant_a/audit-2026-04-27T15:12:55.973494+00:00.json
+tenant_id=tenant_a/audit-2026-04-27T15:13:59.769825+00:00.json
+
+## CloudWatch Lambda Logs
+
+Command: aws logs tail /aws/lambda/multi_tenant_handler_dev \
+  --since 30m \
+  --region eu-west-3
+
+Result: Lambda invocations completed successfully.
+Recent requests returned END and REPORT log entries.
+Max memory used: 96 MB.
+Configured memory size: 128 MB.
+
 ##
