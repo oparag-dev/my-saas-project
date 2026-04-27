@@ -5,6 +5,12 @@ locals {
 data "aws_region" "current" {}
 data "aws_caller_identity" "current" {}
 
+data "archive_file" "lambda_zip" {
+  type        = "zip"
+  source_dir  = "${path.module}/../../../src/lambda"
+  output_path = "${path.module}/../../../build/${var.function_name}.zip"
+}
+
 resource "aws_cloudwatch_log_group" "this" {
   name              = "/aws/lambda/${var.function_name}"
   retention_in_days = 7
@@ -74,8 +80,8 @@ resource "aws_lambda_function" "this" {
   memory_size   = 128
   timeout       = 10
 
-  s3_bucket = var.s3_bucket
-  s3_key    = var.s3_key
+  filename         = data.archive_file.lambda_zip.output_path
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
 
   environment {
     variables = {
