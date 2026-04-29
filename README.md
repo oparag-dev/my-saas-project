@@ -255,6 +255,7 @@ This project shows practical experience with:
 * multi-tenant SaaS architecture
 * AWS security practices
 * cost-aware infrastructure planning
+
 ## Cleaning Up the Infrastructure
 
 If you want to remove the infrastructure created by this project, the safest approach is to use Terraform.
@@ -331,3 +332,11 @@ terraform state list
 ```
 
 If nothing appears, the environment has been cleaned up successfully.
+
+
+### Destroy dev environment
+
+The audit bucket has S3 versioning enabled, so the destroy script empties current objects, object versions, and delete markers before running Terraform destroy.
+
+```bash
+./scripts/destroy.sh dev
